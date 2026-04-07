@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Bash(python .claude/skills/oc-poll/scripts/queue_manager.py*)",
+      "Bash(python .claude/skills/oc-poll/scripts/voice.py*)",
+      "Bash(python .claude/skills/oc-poll/scripts/token_manager.py*)",
+      "Bash(python .claude/skills/oc-poll/scripts/file_manager.py*)",
+      "Bash(cat data/*)",
+      "Bash(ls *)",
+      "Bash(mkdir *)",
+      "Bash(curl -s http://localhost*)"
+    ]
+  }
+}

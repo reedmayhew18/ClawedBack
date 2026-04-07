@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>clawed-back</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Login screen -->
+    <div id="login-screen" class="screen">
+        <div class="login-box">
+            <h1>clawed-back</h1>
+            <p>Enter your auth token to continue.</p>
+            <input type="password" id="token-input" placeholder="Auth token" autofocus>
+            <button id="login-btn">Connect</button>
+            <p id="login-error" class="error hidden"></p>
+        </div>
+    </div>
+
+    <!-- Chat screen -->
+    <div id="chat-screen" class="screen hidden">
+        <header>
+            <h1>clawed-back</h1>
+            <div class="header-controls">
+                <span id="status-indicator" class="status offline" title="Disconnected">&#9679;</span>
+                <button id="logout-btn" title="Log out">&#x2715;</button>
+            </div>
+        </header>
+
+        <div id="messages" class="messages"></div>
+
+        <div class="input-area">
+            <div class="input-row">
+                <label class="file-btn" title="Upload file">
+                    &#128206;
+                    <input type="file" id="file-input" multiple hidden>
+                </label>
+                <button id="voice-btn" class="voice-btn" title="Record voice">&#127908;</button>
+                <textarea id="message-input" placeholder="Type a message..." rows="1"></textarea>
+                <button id="send-btn" title="Send">&#10148;</button>
+            </div>
+            <div id="attachments-preview" class="attachments-preview hidden"></div>
+            <div id="recording-indicator" class="recording-indicator hidden">
+                <span class="pulse">&#9679;</span> Recording... <button id="stop-record-btn">Stop</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/marked.min.js"></script>
+    <script src="/static/purify.min.js"></script>
+    <script src="/static/app.js"></script>
+</body>
+</html>

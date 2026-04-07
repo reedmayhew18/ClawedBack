@@ -1,0 +1,479 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-hover: #79c0ff;
+    --user-bg: #1f6feb;
+    --assistant-bg: #21262d;
+    --error: #f85149;
+    --success: #3fb950;
+    --radius: 12px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    height: 100dvh;
+    overflow: hidden;
+}
+
+.screen {
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden { display: none !important; }
+
+/* --- Login --- */
+#login-screen {
+    align-items: center;
+    justify-content: center;
+}
+
+.login-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    width: min(400px, 90vw);
+    text-align: center;
+}
+
+.login-box h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.login-box p {
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+}
+
+.login-box input:focus {
+    border-color: var(--accent);
+}
+
+.login-box button {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.login-box button:hover {
+    background: var(--accent-hover);
+}
+
+.error {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.75rem;
+}
+
+/* --- Chat --- */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.status {
+    font-size: 0.7rem;
+}
+
+.status.online { color: var(--success); }
+.status.offline { color: var(--error); }
+
+#logout-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+#logout-btn:hover { color: var(--text); }
+
+/* --- Messages --- */
+.messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.message {
+    max-width: 80%;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius);
+    line-height: 1.5;
+    font-size: 0.95rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* --- Markdown content --- */
+.message-body {
+    overflow-wrap: break-word;
+}
+
+.message-body > *:first-child { margin-top: 0; }
+.message-body > *:last-child { margin-bottom: 0; }
+
+.message-body p {
+    margin: 0.4em 0;
+}
+
+.message-body h1, .message-body h2, .message-body h3,
+.message-body h4, .message-body h5, .message-body h6 {
+    margin: 0.6em 0 0.3em;
+    line-height: 1.3;
+    font-weight: 600;
+}
+
+.message-body h1 { font-size: 1.4em; }
+.message-body h2 { font-size: 1.25em; }
+.message-body h3 { font-size: 1.1em; }
+.message-body h4 { font-size: 1em; }
+.message-body h5 { font-size: 0.9em; }
+.message-body h6 { font-size: 0.85em; color: var(--text-muted); }
+
+/* Inline code */
+.message-body code {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.15em 0.35em;
+    border-radius: 4px;
+    font-size: 0.88em;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+/* Code blocks */
+.message-body pre {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    overflow-x: auto;
+    margin: 0.5em 0;
+}
+
+.message-body pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.85em;
+    white-space: pre;
+}
+
+/* Blockquotes */
+.message-body blockquote {
+    border-left: 3px solid var(--accent);
+    margin: 0.5em 0;
+    padding: 0.25em 0.75em;
+    color: var(--text-muted);
+}
+
+.message-body blockquote p { margin: 0.25em 0; }
+
+/* Lists */
+.message-body ul, .message-body ol {
+    margin: 0.4em 0;
+    padding-left: 1.5em;
+}
+
+.message-body li { margin: 0.15em 0; }
+.message-body li > p { margin: 0.2em 0; }
+
+/* Nested lists */
+.message-body ul ul, .message-body ol ol,
+.message-body ul ol, .message-body ol ul {
+    margin: 0.1em 0;
+}
+
+/* Task lists (GFM) */
+.message-body ul li input[type="checkbox"] {
+    margin-right: 0.4em;
+}
+
+/* Tables */
+.message-body table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.5em 0;
+    font-size: 0.9em;
+}
+
+.message-body th, .message-body td {
+    border: 1px solid var(--border);
+    padding: 0.4em 0.6em;
+    text-align: left;
+}
+
+.message-body th {
+    background: rgba(255, 255, 255, 0.05);
+    font-weight: 600;
+}
+
+.message-body tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Horizontal rule */
+.message-body hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0.75em 0;
+}
+
+/* Links */
+.message-body a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.message-body a:hover {
+    text-decoration: underline;
+    color: var(--accent-hover);
+}
+
+/* Images (inline in markdown) */
+.message-body img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 0.4em 0;
+}
+
+/* Bold, italic, strikethrough */
+.message-body strong { font-weight: 700; }
+.message-body em { font-style: italic; }
+.message-body del { text-decoration: line-through; color: var(--text-muted); }
+
+/* User messages: slightly lighter code bg for contrast */
+.message.user .message-body code {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.message.user .message-body pre {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.message.user {
+    align-self: flex-end;
+    background: var(--user-bg);
+    border-bottom-right-radius: 4px;
+}
+
+.message.assistant {
+    align-self: flex-start;
+    background: var(--assistant-bg);
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+}
+
+.message .meta {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+}
+
+.message.user .meta {
+    text-align: right;
+    color: rgba(255,255,255,0.6);
+}
+
+.read-receipt {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.8rem;
+    transition: color 0.3s;
+}
+
+.read-receipt[style*="display: inline"] {
+    color: #58d68d;
+}
+
+.message .attachments-list {
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-top: 0.3rem;
+}
+
+/* --- Input area --- */
+.input-area {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+}
+
+.input-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+#message-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    padding: 0.6rem 0.8rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    resize: none;
+    max-height: 150px;
+    outline: none;
+    line-height: 1.4;
+}
+
+#message-input:focus {
+    border-color: var(--accent);
+}
+
+#send-btn, .voice-btn, .file-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+#send-btn:hover, .voice-btn:hover, .file-btn:hover {
+    color: var(--accent);
+}
+
+.voice-btn.recording {
+    color: var(--error);
+    animation: pulse-recording 1s infinite;
+}
+
+@keyframes pulse-recording {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* --- Attachments preview --- */
+.attachments-preview {
+    display: flex;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.attachment-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.25rem 0.6rem;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.attachment-chip button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0;
+}
+
+.attachment-chip button:hover { color: var(--error); }
+
+/* --- Recording indicator --- */
+.recording-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--error);
+}
+
+.pulse {
+    animation: pulse-recording 1s infinite;
+}
+
+#stop-record-btn {
+    background: var(--error);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+/* --- Scrollbar --- */
+.messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+    .message { max-width: 90%; }
+    .login-box { padding: 1.5rem; }
+}
