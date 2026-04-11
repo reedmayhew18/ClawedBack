@@ -113,6 +113,7 @@ data/                # Runtime data (gitignored)
 | `/code-review` | Code review via subagent |
 | `/research` | Structured web research |
 | `/grill-me` | Deep interview before building |
+| `/robust-edit` | Robust, line-based file reading and editing. Read a range with `robust_edit.py <file> <start> <end> --read`, then save the new content back over that range with `robust_edit.py <file> <start> <end> --stdin <<'EOF' [edited content] EOF`. Also supports insert-without-replacing (`end = start - 1`), delete (`""` as content), and append. Particularly useful for smaller models/LLMs that struggle with precise character-level matching or multi-line edits. |
 
 ## OpenClaw Tool Compatibility
 
