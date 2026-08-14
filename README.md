@@ -352,4 +352,4 @@ AGPL-3.0
 
 *Powered by crabs.* 🦀🦀🦀
 
-For questions or concerns, please contact rm28-legal@pm.me
+For questions or concerns, please open an issue. Thank you!
